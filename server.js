@@ -24,20 +24,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // K?T N?I MYSQL
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'luong123@',
-  database: 'wedding'
-});
 
-db.connect(err => {
-  if (err) {
-    console.log("? L?i k?t n?i MySQL:", err);
-  } else {
-    console.log("? Ðã k?t n?i MySQL");
-  }
-});
+
+
 
 // API NH?N RSVP
 app.post('/rsvp', (req, res) => {
@@ -67,6 +56,7 @@ app.get('/guests', (req, res) => {
 app.listen(3000, () => {
   console.log("?? Server ch?y t?i http://localhost:3000");
 });});
+
 
 
 
