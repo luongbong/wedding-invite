@@ -1,102 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Thiệp Cưới Thùy & Nhi</title>
+  <meta charset="UTF-8" />
+  <title>Thiệp Cưới Đức Lương & Trần Châu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-  <style>
-  body {
-    font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-        background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
-          padding: 20px;
-          }
+  <div class="overlay">
+    <h1 class="title">Thiệp Mời Đám Cưới</h1>
 
-          h1 {
-            color: #c71585;
-              font-size: 40px;
-              }
+    <h2 class="names">Đức Lương ❤️ Trần Châu</h2>
 
-              h3 {
-                color: #555;
-                }
+    <p class="date">Ngày 20 tháng 3 năm 2026</p>
 
-                form {
-                  background: white;
-                    padding: 20px;
-                      border-radius: 10px;
-                        display: inline-block;
-                          box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                          }
+    <div class="countdown">
+      <div><span id="days">0</span><p>Ngày</p></div>
+      <div><span id="hours">0</span><p>Giờ</p></div>
+      <div><span id="minutes">0</span><p>Phút</p></div>
+      <div><span id="seconds">0</span><p>Giây</p></div>
+    </div>
 
-                          input, select, textarea {
-                            width: 250px;
-                              padding: 8px;
-                                margin: 5px 0;
-                                }
+    <p class="invite-text">
+      Trân trọng kính mời bạn đến chung vui cùng chúng tôi trong ngày trọng đại 💍
+    </p>
 
-                                button {
-                                  background: #c71585;
-                                    color: white;
-                                      border: none;
-                                        padding: 10px 20px;
-                                          cursor: pointer;
-                                          }
+    <a href="#rsvp" class="btn">Xác nhận tham dự</a>
+  </div>
 
-                                          button:hover {
-                                              background: #a0126a;
-                                              }
-                                              </style>
-                                              </head>
-                                          
-    <body>
-
-    <h1>💍 Thùy & Nhi</h1>
-    <h3>24.01.2026 - 15:00</h3>
-
-    <form id="rsvpForm">
-      <input type="text" id="name" placeholder="Tên" required><br><br>
-        <input type="tel" id="phone" placeholder="SĐT"><br><br>
-          <input type="email" id="email" placeholder="Email"><br><br>
-
-            <select id="attending">
-                    <option value="yes">Tham dự</option>
-                        <option value="no">Không tham dự</option>
-                            <option value="maybe">Chưa chắc</option>
-            </select><br><br>
-
-              <textarea id="message" placeholder="Lời chúc"></textarea><br><br>
-
-                <button type="submit">Gửi xác nhận</button>
-                </form>
-
-                <p id="result"></p>
-
-                <script>
-                document.getElementById("rsvpForm").addEventListener("submit", async function(e) {
-                      e.preventDefault();
-
-                        const data = {
-                                name: document.getElementById("name").value,
-                                    phone: document.getElementById("phone").value,
-                                        email: document.getElementById("email").value,
-                                            attending: document.getElementById("attending").value,
-                                                message: document.getElementById("message").value
-                        };
-
-                          const res = await fetch("/rsvp", {
-                                method: "POST",
-                                    headers: { "Content-Type": "application/json" },
-                                        body: JSON.stringify(data)
-                                          });
-
-                                            const text = await res.text();
-                                              document.getElementById("result").innerText = text;
-                                              });
-                                              </script>
-
-                                              </body>
-                                              </html>
-                          })
-                        }
-                })
+  <script src="script.js"></script>
+</body>
+</html>
