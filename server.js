@@ -1,6 +1,15 @@
 const express = require('express');
 const mysql = require("mysql2");
+const cors = require('cors');
 
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+// KẾT NỐI MYSQL
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -8,6 +17,7 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT
 });
+
 db.connect(err => {
   if (err) {
     console.error("❌ MySQL lỗi:", err);
@@ -15,20 +25,9 @@ db.connect(err => {
     console.log("✅ MySQL Railway connected");
   }
 });
-const cors = require('cors');
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
-
-// K?T N?I MYSQL
 
 
-
-
-// API NH?N RSVP
+// API NHẬN RSVP
 app.post('/rsvp', (req, res) => {
   const { name, phone, email, attending, message } = req.body;
 
@@ -37,13 +36,15 @@ app.post('/rsvp', (req, res) => {
   db.query(sql, [name, phone, email, attending, message], (err) => {
     if (err) {
       console.log(err);
-      res.send("L?i luu d? li?u");
+      res.send("Lỗi lưu dữ liệu");
     } else {
-      res.send("?? Ðã luu l?i xác nh?n!");
+      res.send("Đã lưu lại xác nhận!");
     }
   });
 });
 
+
+// API LẤY DANH SÁCH KHÁCH
 app.get('/guests', (req, res) => {
   db.query("SELECT * FROM guests", (err, results) => {
     if (err) {
@@ -52,14 +53,12 @@ app.get('/guests', (req, res) => {
       res.json(results);
     }
   });
+});   // ✅ ĐÓNG app.get Ở ĐÂY
 
+
+// CHẠY SERVER
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log("🚀 Server chạy trên cổng " + PORT);
 });
-
-
-
-
-
