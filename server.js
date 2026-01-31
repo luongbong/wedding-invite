@@ -52,10 +52,11 @@ app.get('/guests', (req, res) => {
       res.json(results);
     }
   });
-});
+
 app.listen(3000, () => {
   console.log("?? Server ch?y t?i http://localhost:3000");
 });});
+
 
 
 
