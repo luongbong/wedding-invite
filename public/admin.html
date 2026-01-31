@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Danh sách khách mời</title>
+</head>
+<body>
+<h2>Danh sách khách đã gửi RSVP</h2>
+<table border="1" id="guestTable">
+    <tr>
+    <th>Tên</th><th>Phone</th><th>Email</th><th>Tham dự</th><th>Lời chúc</th>
+    </tr>
+    </table>
+
+    <script>
+        fetch("/guests")
+        .then(res => res.json())
+        .then(data => {
+              const table = document.getElementById("guestTable");
+                data.forEach(g => {
+                        table.innerHTML += `<tr>
+                                  <td>${g.name}</td>
+                                        <td>${g.phone}</td>
+                                              <td>${g.email}</td>
+                                                    <td>${g.attending}</td>
+                                                          <td>${g.message}</td>
+                                                              </tr>`;
+                                                                });
+                                                                });
+                                                                </script>
+                                                                </body>
+                                                                </html>
+                }
+        })
