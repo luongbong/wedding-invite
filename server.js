@@ -8,6 +8,13 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT
 });
+db.connect(err => {
+  if (err) {
+    console.error("❌ MySQL lỗi:", err);
+  } else {
+    console.log("✅ MySQL Railway connected");
+  }
+});
 const cors = require('cors');
 
 const app = express();
@@ -60,4 +67,5 @@ app.get('/guests', (req, res) => {
 app.listen(3000, () => {
   console.log("?? Server ch?y t?i http://localhost:3000");
 });});
+
 
