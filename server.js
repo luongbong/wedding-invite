@@ -20,7 +20,7 @@ db.connect(err => {
   if (err) {
     console.log("? L?i k?t n?i MySQL:", err);
   } else {
-    console.log("? Ðã k?t n?i MySQL");
+    console.log("? ÃÃ£ k?t n?i MySQL");
   }
 });
 
@@ -35,7 +35,7 @@ app.post('/rsvp', (req, res) => {
       console.log(err);
       res.send("L?i luu d? li?u");
     } else {
-      res.send("?? Ðã luu l?i xác nh?n!");
+      res.send("?? ÃÃ£ luu l?i xÃ¡c nh?n!");
     }
   });
 });
@@ -51,4 +51,4 @@ app.get('/guests', (req, res) => {
 });
 app.listen(3000, () => {
   console.log("?? Server ch?y t?i http://localhost:3000");
-});
+});});
