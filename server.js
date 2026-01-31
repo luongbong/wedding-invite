@@ -1,5 +1,13 @@
 const express = require('express');
-const mysql = require('mysql2');
+const mysql = require("mysql2");
+
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT
+});
 const cors = require('cors');
 
 const app = express();
@@ -52,3 +60,4 @@ app.get('/guests', (req, res) => {
 app.listen(3000, () => {
   console.log("?? Server ch?y t?i http://localhost:3000");
 });});
+
