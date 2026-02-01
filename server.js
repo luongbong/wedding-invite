@@ -1,26 +1,23 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
+// ===== Middleware =====
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
-});
-
-
-// ================= MYSQL POOL (TỰ RECONNECT) =================
+// ===== MySQL Pool (Railway) =====
 const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT || 3306,
+  port: process.env.DB_PORT,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
@@ -37,14 +34,12 @@ db.getConnection((err, connection) => {
   }
 });
 
-
-// ================= ROUTE TEST SERVER =================
+// ===== ROUTE TRANG CHỦ =====
 app.get('/', (req, res) => {
-  res.send("💍 Wedding Server đang chạy ngon lành 🎉");
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-
-// ================= API NHẬN RSVP =================
+// ===== API NHẬN RSVP =====
 app.post('/rsvp', (req, res) => {
   const { name, phone, email, attending, message } = req.body;
 
@@ -73,30 +68,36 @@ app.post('/rsvp', (req, res) => {
   });
 });
 
-
-// ================= API XEM DANH SÁCH KHÁCH (CÓ MẬT KHẨU) =================
+// ===== API XEM DANH SÁCH KHÁCH =====
 app.get('/guests', (req, res) => {
   const password = req.query.pass;
 
-  if (password !== "bunscho") {
+  if (password !== "admin123") {
     return res.status(403).send("⛔ Không có quyền truy cập");
   }
 
   db.query("SELECT * FROM guests ORDER BY id DESC", (err, results) => {
     if (err) {
-      console.error(err);
-      return res.json([]);
+      console.error("❌ Lỗi lấy danh sách:", err);
+      return res.status(500).json([]);
     }
 
     res.json(results);
   });
 });
 
-
-// ================= CHẠY SERVER =================
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, "0.0.0.0", () => {
-  console.log("🚀 Server chạy trên cổng " + PORT);
+// ===== BẮT LỖI KHÔNG CRASH SERVER =====
+process.on('uncaughtException', err => {
+  console.error('🔥 Uncaught Exception:', err);
 });
 
+process.on('unhandledRejection', err => {
+  console.error('🔥 Unhandled Rejection:', err);
+});
+
+// ===== CHẠY SERVER (CHUẨN RAILWAY) =====
+const PORT = process.env.PORT;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server chạy trên cổng ${PORT}`);
+});
