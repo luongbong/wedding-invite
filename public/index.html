@@ -2,31 +2,42 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Thiệp Cưới Đức Lương & Trần Châu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đức Lương ♥ Trần Châu</title>
+
+  <!-- Font đẹp -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div class="overlay">
-    <h1 class="title">Thiệp Mời Đám Cưới</h1>
-
-    <h2 class="names">Đức Lương ❤️ Trần Châu</h2>
-
-    <p class="date">Ngày 20 tháng 3 năm 2026</p>
-
-    <div class="countdown">
-      <div><span id="days">0</span><p>Ngày</p></div>
-      <div><span id="hours">0</span><p>Giờ</p></div>
-      <div><span id="minutes">0</span><p>Phút</p></div>
-      <div><span id="seconds">0</span><p>Giây</p></div>
+  <!-- MÀN HÌNH MỞ ĐẦU -->
+  <section class="hero">
+    <div class="overlay">
+      <h1 class="fade-in">Đức Lương ♥ Trần Châu</h1>
+      <p class="fade-in delay">20 • 03 • 2026</p>
+      <div id="countdown" class="countdown fade-in delay2"></div>
     </div>
+  </section>
 
-    <p class="invite-text">
-      Trân trọng kính mời bạn đến chung vui cùng chúng tôi trong ngày trọng đại 💍
-    </p>
+  <!-- THÔNG TIN TIỆC -->
+  <section class="info section">
+    <h2>Lễ Thành Hôn</h2>
+    <p>Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi</p>
+  </section>
 
-    <a href="#rsvp" class="btn">Xác nhận tham dự</a>
-  </div>
+  <!-- FORM RSVP -->
+  <section class="rsvp section">
+    <h2>Xác nhận tham dự</h2>
+    <form id="rsvpForm">
+      <input type="text" placeholder="Tên của bạn" name="name" required />
+      <input type="text" placeholder="Số điện thoại" name="phone" />
+      <textarea placeholder="Lời chúc gửi cô dâu chú rể" name="message"></textarea>
+      <button type="submit">Gửi xác nhận</button>
+    </form>
+    <p id="responseMsg"></p>
+  </section>
 
   <script src="script.js"></script>
 </body>
