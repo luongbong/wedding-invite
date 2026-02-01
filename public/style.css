@@ -95,3 +95,33 @@ button:hover {
 @keyframes fadeIn {
   to { opacity: 1; }
 }
+/* GIFT SECTION */
+.gift {
+  background: linear-gradient(135deg, #1a1a1a, #2b2b2b);
+}
+
+.bank-box {
+  margin-top: 25px;
+  background: #111;
+  display: inline-block;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(255,255,255,0.05);
+}
+
+.bank-box p {
+  margin: 6px 0;
+}
+
+.qr {
+  width: 200px;
+  margin: 20px 0;
+  border-radius: 12px;
+  background: white;
+  padding: 10px;
+}
+
+.note {
+  font-size: 14px;
+  opacity: 0.8;
+}
