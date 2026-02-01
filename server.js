@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require("mysql2");
+const mysql = require('mysql2');
 const cors = require('cors');
 
 const app = express();
@@ -9,61 +9,89 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// KẾT NỐI MYSQL
+
+// ================= MYSQL POOL (TỰ RECONNECT) =================
 const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
+  port: process.env.DB_PORT || 3306,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
 });
 
+console.log("🟡 Đang kết nối MySQL...");
 
-db.connect(err => {
+db.getConnection((err, connection) => {
   if (err) {
-    console.error("❌ MySQL lỗi:", err);
+    console.error("❌ Lỗi kết nối MySQL:", err);
   } else {
-    console.log("✅ MySQL Railway connected");
+    console.log("✅ MySQL Railway connected!");
+    connection.release();
   }
 });
 
 
-// API NHẬN RSVP
+// ================= ROUTE TEST SERVER =================
+app.get('/', (req, res) => {
+  res.send("💍 Wedding Server đang chạy ngon lành 🎉");
+});
+
+
+// ================= API NHẬN RSVP =================
 app.post('/rsvp', (req, res) => {
   const { name, phone, email, attending, message } = req.body;
 
-  const sql = "INSERT INTO guests (name, phone, email, attending, message) VALUES (?, ?, ?, ?, ?)";
+  if (!name || !attending) {
+    return res.status(400).send("Thiếu tên hoặc trạng thái tham dự");
+  }
 
-  db.query(sql, [name, phone, email, attending, message], (err) => {
+  const sql = `
+    INSERT INTO guests (name, phone, email, attending, message)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+
+  db.query(sql, [
+    name,
+    phone || null,
+    email || null,
+    attending,
+    message || null
+  ], (err) => {
     if (err) {
-      console.log(err);
-      res.send("Lỗi lưu dữ liệu");
-    } else {
-      res.send("Đã lưu lại xác nhận!");
+      console.error("❌ Lỗi lưu RSVP:", err);
+      return res.status(500).send("Lỗi lưu dữ liệu");
     }
+
+    res.send("✅ Đã lưu xác nhận tham dự!");
   });
 });
 
 
-// API LẤY DANH SÁCH KHÁCH
+// ================= API XEM DANH SÁCH KHÁCH (CÓ MẬT KHẨU) =================
 app.get('/guests', (req, res) => {
-  db.query("SELECT * FROM guests", (err, results) => {
+  const password = req.query.pass;
+
+  if (password !== "bunscho") {
+    return res.status(403).send("⛔ Không có quyền truy cập");
+  }
+
+  db.query("SELECT * FROM guests ORDER BY id DESC", (err, results) => {
     if (err) {
-      res.json([]);
-    } else {
-      res.json(results);
+      console.error(err);
+      return res.json([]);
     }
+
+    res.json(results);
   });
-});   // ✅ ĐÓNG app.get Ở ĐÂY
+});
 
 
-// CHẠY SERVER
+// ================= CHẠY SERVER =================
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log("🚀 Server chạy trên cổng " + PORT);
 });
-
