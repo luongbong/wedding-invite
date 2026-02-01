@@ -1,63 +1,97 @@
-body {
+* {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486') no-repeat center center/cover;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
   color: white;
   text-align: center;
+  overflow-x: hidden;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1520854221256-17451cc331bf') center/cover no-repeat;
+  position: relative;
 }
 
 .overlay {
-  background: rgba(0, 0, 0, 0.55);
-  min-height: 100vh;
-  padding: 40px 20px;
+  background: rgba(0,0,0,0.45);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.title {
-  font-size: 28px;
-  letter-spacing: 3px;
-  margin-top: 40px;
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
 }
 
-.names {
-  font-size: 48px;
-  margin: 20px 0;
-}
-
-.date {
-  font-size: 22px;
-  margin-bottom: 30px;
+.hero p {
+  font-size: 1.2rem;
+  margin-top: 10px;
 }
 
 .countdown {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  margin: 30px 0;
+  margin-top: 20px;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
 }
 
-.countdown div {
-  background: rgba(255,255,255,0.15);
-  padding: 15px 20px;
-  border-radius: 10px;
+/* SECTIONS */
+.section {
+  padding: 80px 20px;
+  background: #111;
 }
 
-.countdown span {
-  font-size: 32px;
-  font-weight: bold;
+.section:nth-child(even) {
+  background: #1c1c1c;
 }
 
-.invite-text {
-  margin-top: 40px;
-  font-size: 18px;
+/* RSVP FORM */
+form {
+  margin-top: 20px;
 }
 
-.btn {
-  display: inline-block;
-  margin-top: 25px;
-  padding: 12px 28px;
+input, textarea {
+  width: 90%;
+  max-width: 400px;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+}
+
+button {
+  padding: 12px 25px;
+  border-radius: 25px;
+  border: none;
   background: #e91e63;
   color: white;
-  text-decoration: none;
-  border-radius: 30px;
-  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #ff4081;
+  transform: scale(1.05);
+}
+
+/* ANIMATION */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+.delay { animation-delay: 1s; }
+.delay2 { animation-delay: 2s; }
+
+@keyframes fadeIn {
+  to { opacity: 1; }
 }
