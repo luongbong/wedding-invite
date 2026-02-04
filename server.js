@@ -10,14 +10,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ KẾT NỐI MYSQL RAILWAY ĐÚNG CÁCH
+// ✅ KẾT NỐI MYSQL RAILWAY ĐÚNG BIẾN MÔI TRƯỜNG
 const db = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
-    ssl: { rejectUnauthorized: false }, // Railway cần SSL
+    host: process.env.MYSQLHOST,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQLDATABASE,
+    port: process.env.MYSQLPORT,
+    ssl: { rejectUnauthorized: false },
     waitForConnections: true,
     connectionLimit: 10
 });
