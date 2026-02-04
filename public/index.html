@@ -1,63 +1,184 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Đức Lương ♥ Trần Châu</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Wedding Invitation</title>
 
-  <!-- Font đẹp -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<!-- Font đẹp -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css" />
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fdfbfb, #ebedee);
+    color: #333;
+    overflow-x: hidden;
+}
+
+section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffe6eb, #ffffff);
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    animation: fadeDown 1s ease;
+}
+
+.hero p {
+    font-size: 18px;
+    opacity: 0.8;
+    animation: fadeUp 1.2s ease;
+}
+
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    margin: 20px auto;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-family: 'Poppins', sans-serif;
+}
+
+button {
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 118, 156, 0.4);
+}
+
+footer {
+    padding: 30px;
+    font-size: 14px;
+    opacity: 0.7;
+}
+</style>
 </head>
+
 <body>
 
-  <!-- MÀN HÌNH MỞ ĐẦU -->
-  <section class="hero">
-    <div class="overlay">
-      <h1 class="fade-in">Đức Lương ♥ Trần Châu</h1>
-      <p class="fade-in delay">20 • 03 • 2026</p>
-      <div id="countdown" class="countdown fade-in delay2"></div>
-    </div>
-  </section>
-
-  <!-- THÔNG TIN TIỆC -->
-  <section class="info section">
-    <h2>Lễ Thành Hôn</h2>
-    <p>Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi</p>
-  </section>
-
-  <!-- FORM RSVP -->
-  <section class="rsvp section">
-    <h2>Xác nhận tham dự</h2>
-    <form id="rsvpForm">
-      <input type="text" placeholder="Tên của bạn" name="name" required />
-      <input type="text" placeholder="Số điện thoại" name="phone" />
-      <textarea placeholder="Lời chúc gửi cô dâu chú rể" name="message"></textarea>
-      <button type="submit">Gửi xác nhận</button>
-    </form>
-    <p id="responseMsg"></p>
-  </section>
-<!-- MỪNG CƯỚI CHUYỂN KHOẢN -->
-<section class="gift section">
-  <h2>Mừng Cưới 💝</h2>
-  <p>Nếu bạn muốn gửi quà chúc phúc từ xa</p>
-
-  <div class="bank-box">
-    <p><strong>Ngân hàng:</strong> CAKE Bank</p>
-    <p><strong>Chủ tài khoản:</strong> Vũ Đức Lương</p>
-    <p><strong>Số tài khoản:</strong> 0337064857</p>
-
-    <img 
-      src="https://img.vietqr.io/image/CAKE-0337064857-compact.png?amount=&addInfo=Mung%20cuoi%20Duc%20Luong%20Tran%20Chau&accountName=Vu%20Duc%20Luong" 
-      alt="QR chuyển khoản" 
-      class="qr"
-    />
-
-    <p class="note">Quét mã QR bằng app ngân hàng để chuyển khoản nhanh 💕</p>
-  </div>
+<section class="hero">
+    <h1>Lương ♥ Châu</h1>
+    <p>Trân trọng kính mời bạn đến chung vui cùng chúng tôi</p>
 </section>
-  <script src="script.js"></script>
+
+<section>
+    <h2>Thông Tin Lễ Cưới</h2>
+    <div class="card reveal">
+        <p><strong>Thời gian:</strong> 10:30 AM - 20.03.2026</p>
+        <p><strong>Địa điểm:</strong> Nhà hàng tiệc cưới Victory</p>
+    </div>
+</section>
+
+<section>
+    <h2>Xác nhận tham dự</h2>
+    <div class="card reveal">
+        <form id="rsvpForm">
+            <input type="text" name="name" placeholder="Tên của bạn" required>
+            <input type="text" name="phone" placeholder="Số điện thoại">
+<input type="email" name="email" placeholder="Email">
+            <select name="attending" required>
+                <option value="">Bạn có tham dự không?</option>
+                <option value="Có">Có, tôi sẽ đến</option>
+                <option value="Không">Xin lỗi, tôi bận</option>
+            </select>
+            <textarea name="message" placeholder="Lời nhắn"></textarea>
+            <button type="submit">Gửi xác nhận</button>
+        </form>
+        <p id="responseMsg"></p>
+    </div>
+</section>
+
+<footer>
+    Made with ♥ for our wedding
+</footer>
+
+<script>
+// Hiệu ứng xuất hiện khi cuộn
+const reveals = document.querySelectorAll('.reveal');
+window.addEventListener('scroll', () => {
+    reveals.forEach(card => {
+        const top = card.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100) {
+            card.classList.add('show');
+        }
+    });
+});
+
+// Gửi RSVP
+document.getElementById("rsvpForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const formData = Object.fromEntries(new FormData(this).entries());
+
+    const res = await fetch("/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+    });
+
+    const msg = await res.text();
+    document.getElementById("responseMsg").innerText = msg;
+    this.reset();
+});
+</script>
+
 </body>
 </html>
-
