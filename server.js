@@ -5,23 +5,27 @@ const path = require('path');
 
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ KẾT NỐI MYSQL RAILWAY ĐÚNG BIẾN MÔI TRƯỜNG
+
+// ================= MYSQL RAILWAY =================
 const db = mysql.createPool({
     host: process.env.MYSQLHOST,
     user: process.env.MYSQLUSER,
     password: process.env.MYSQLPASSWORD,
     database: process.env.MYSQLDATABASE,
-    port: process.env.MYSQLPORT,
+    port: Number(process.env.MYSQLPORT), // ⚠️ Railway trả về string nên phải đổi sang Number
     ssl: { rejectUnauthorized: false },
     waitForConnections: true,
-    connectionLimit: 10
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
+// Test kết nối khi server khởi động
 db.getConnection((err, connection) => {
     if (err) {
         console.error("❌ MySQL Railway lỗi:", err);
@@ -31,10 +35,16 @@ db.getConnection((err, connection) => {
     }
 });
 
+
+// ================= ROUTES =================
+
+// Trang chủ
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+
+// API lưu RSVP
 app.post('/rsvp', (req, res) => {
     const { name, phone, email, attending, message } = req.body;
 
@@ -54,6 +64,8 @@ app.post('/rsvp', (req, res) => {
     });
 });
 
+
+// API xem danh sách khách (có mật khẩu)
 app.get('/guests', (req, res) => {
     if (req.query.pass !== "admin123") {
         return res.status(403).send("⛔ Không có quyền truy cập");
@@ -68,7 +80,17 @@ app.get('/guests', (req, res) => {
     });
 });
 
+
+// Route kiểm tra server sống (Railway rất thích route này)
+app.get('/health', (req, res) => {
+    res.send("OK");
+});
+
+
+// ================= START SERVER =================
 const PORT = process.env.PORT || 3000;
+
+// ⚠️ QUAN TRỌNG cho Railway: phải listen 0.0.0.0
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Server chạy trên cổng ${PORT}`);
 });
